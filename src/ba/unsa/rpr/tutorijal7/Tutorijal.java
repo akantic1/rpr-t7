@@ -55,37 +55,30 @@ public class Tutorijal {
         return g;
     }
 
-    static UN ucitajXml(String s, ArrayList<Grad> gradovi) {
+    static UN ucitajXml( ArrayList<Grad> gradovi) {
         UN u = new UN();
         Document xmldoc = null;
         try {
             DocumentBuilder docReader
                     = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            xmldoc = docReader.parse(new File(s));
-            Element korijen = xmldoc.getDocumentElement() ;
-           u = funkcija(korijen);
-
-
+            xmldoc = docReader.parse(new File("drzave.xml"));
         } catch (Exception e) {
             System.out.println(e);
         }
-        return u;
-    }
-    static UN funkcija(Element element) {
-        ArrayList<Drzava> drzave = new ArrayList<>();
-        Drzava d = new Drzava();
-        Grad g = new Grad();
 
-        NodeList djeca = element.getChildNodes();
+        NodeList djeca = xmldoc.getElementsByTagName("drzava");
         for (int i = 0; i < djeca.getLength(); i++) {
             Node dijete = djeca.item(i);
+
             if (dijete instanceof Element) {
                 Element e = (Element) dijete;
             }
         }
 
-       UN u = new UN();
+        
 
-    return u;
+        return u;
+
     }
+
 }
