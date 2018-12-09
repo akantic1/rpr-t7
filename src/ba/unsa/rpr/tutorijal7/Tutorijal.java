@@ -1,5 +1,14 @@
 package ba.unsa.rpr.tutorijal7;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -15,7 +24,6 @@ public class Tutorijal {
     public static ArrayList<Grad> ucitajGradove(){
         ArrayList<Grad> g = new ArrayList<>();
         ArrayList<String> temp = new ArrayList<>();
-        int vel = 0;
         Scanner ulaz;
         try {
             ulaz = new Scanner(new FileReader("mjerenja.txt"));
@@ -45,5 +53,39 @@ public class Tutorijal {
         }
         ulaz.close();
         return g;
+    }
+
+    static UN ucitajXml(String s, ArrayList<Grad> gradovi) {
+        UN u = new UN();
+        Document xmldoc = null;
+        try {
+            DocumentBuilder docReader
+                    = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            xmldoc = docReader.parse(new File(s));
+            Element korijen = xmldoc.getDocumentElement() ;
+           u = funkcija(korijen);
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return u;
+    }
+    static UN funkcija(Element element) {
+        ArrayList<Drzava> drzave = new ArrayList<>();
+        Drzava d = new Drzava();
+        Grad g = new Grad();
+
+        NodeList djeca = element.getChildNodes();
+        for (int i = 0; i < djeca.getLength(); i++) {
+            Node dijete = djeca.item(i);
+            if (dijete instanceof Element) {
+                Element e = (Element) dijete;
+            }
+        }
+
+       UN u = new UN();
+        return u;
+
     }
 }
