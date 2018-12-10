@@ -56,6 +56,7 @@ public class Tutorijal {
     }
 
     static UN ucitajXml( ArrayList<Grad> gradovi) {
+        ArrayList<Drzava> d = new ArrayList<>();
         UN u = new UN();
         Document xmldoc = null;
         try {
@@ -71,12 +72,35 @@ public class Tutorijal {
             Node dijete = djeca.item(i);
 
             if (dijete instanceof Element) {
-                Element e = (Element) dijete;
+                Element drzava = (Element) dijete;
+                String naziv = drzava.getElementsByTagName("naziv").item(0).getTextContent();
+                int brStanovnika = Integer.parseInt(drzava .getAttribute("stanovnika"));
+
+                Element glavniGr = (Element) drzava.getElementsByTagName("glavnigrad").item(0);
+                String nazivGrada = glavniGr.getTextContent().trim();
+                int brStanovnikaGrada = Integer.parseInt(glavniGr.getAttribute("stanovnika"));
+
+
+                Element povrsina = (Element) drzava.getElementsByTagName("povrsina").item(0);
+                String jedinica = povrsina.getAttribute("jedinica");
+                int povrsinaDrzave = Integer.parseInt(drzava.getElementsByTagName("povrsina").item(0).getTextContent());
+
+                Grad glavniGrad = new Grad();
+                glavniGrad.setNaziv(nazivGrada);
+                glavniGrad.setBrojStanovnika(brStanovnikaGrada);
+
+                Drzava dr = new Drzava();
+                dr.setBrojStanovnika(brStanovnika);
+                dr.setNaziv(naziv);
+                dr.setGlavniGrad(glavniGrad);
+                dr.setJedinicaPovrsine(jedinica);
+                dr.setPovrsina(povrsinaDrzave);
+                d.add(dr);
             }
         }
 
-        
 
+        u.setDrzave(d);
         return u;
 
     }
