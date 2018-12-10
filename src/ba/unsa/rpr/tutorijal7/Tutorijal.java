@@ -8,9 +8,8 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.beans.XMLEncoder;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -105,4 +104,13 @@ public class Tutorijal {
 
     }
 
+    void zapisiXml(UN u) {
+        try{
+        XMLEncoder izlaz = new XMLEncoder(new FileOutputStream("un.xml"));
+        izlaz.writeObject(u);
+        izlaz.close();
+        } catch(Exception e) {
+            System.out.println("Greška: "+e);
+        }
+    }
 }
